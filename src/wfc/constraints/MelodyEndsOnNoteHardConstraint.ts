@@ -1,0 +1,35 @@
+import { OctavedNote, Note } from "../../music_theory/Note"
+import { Grabber } from "../Grabber"
+import { HigherValues } from "../HigherValues"
+import { Tile } from "../Tile"
+import { RootOfChordGrabber } from "../grabbers/noteGrabbers"
+import { HardConstraint } from "./concepts/Constraint"
+import { noteConstraintTypeToName } from "./constraintUtils"
+
+export const MelodyEndsOnNoteHardConstraintInit = {
+	type: "MelodyEndsOnNoteHardConstraint" as const,
+	noteGrabber: RootOfChordGrabber,
+	validByDefault: true as const,
+}
+
+export type MelodyEndsOnNoteHardConstraintIR =
+	typeof MelodyEndsOnNoteHardConstraintInit
+
+export class MelodyEndsOnNoteHardConstraint
+	implements HardConstraint<OctavedNote>
+{
+	private grabber: Grabber<Note>
+	name = noteConstraintTypeToName.get(
+		MelodyEndsOnNoteHardConstraintInit.type,
+	) as string
+	constructor(grabber: Grabber<Note>) {
+		this.grabber = grabber
+	}
+
+	check(tile: Tile<OctavedNote>, higherValues: HigherValues): boolean {
+		if (tile.getPosition() != tile.getCanvas().getSize() - 1) return true
+		const note = tile.getValue()
+		const startNote = this.grabber(higherValues)
+		return note.getNote() == startNote
+	}
+}
