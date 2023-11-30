@@ -1,0 +1,50 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"prettier",
+		"prettier/@typescript-eslint",
+		"prettier/react",
+		"plugin:prettier/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "react", "prettier"],
+	"rules": {
+		"prettier/prettier": [
+			"error",
+			{
+				"tabWidth": 4,
+				"useTabs": true,
+				"semi": false,
+				"singleQuote": false,
+				"endOfLine": "auto",
+				"printWidth": 80,
+				"arrowParens": "avoid",
+				"trailingComma": "es5"
+			}
+		],
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				"varsIgnorePattern": "^_",
+				"argsIgnorePattern": "^_"
+			}
+		],
+		"no-multiple-empty-lines": [
+			"error",
+			{
+				"max": 1
+			}
+		]
+	}
+}
