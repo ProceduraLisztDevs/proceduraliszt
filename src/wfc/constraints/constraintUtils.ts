@@ -1,5 +1,5 @@
 import { OctavedNote } from "../../music_theory/Note"
-import { constantGrabber } from "../grabbers/constantGrabbers"
+import { constantMelodyShapeGrabber, constantNumberArrayGrabber, constantOctavedNoteGrabber } from "../grabbers/constantGrabbers"
 import { Chordesque } from "../hierarchy/Chordesque"
 import {
 	AscendingMelodySoftConstraint,
@@ -62,6 +62,7 @@ import {
 } from "./cadences/PlagalCadenceSoftConstraint"
 import { Constraint } from "./concepts/Constraint"
 import { HigherValues } from "../HigherValues"
+import { noteGrabberIRToGrabber } from "../grabbers/noteGrabbers"
 
 export type ChordConstraintIR =
 	| ChordInKeyHardConstraintIR
@@ -134,7 +135,7 @@ export const convertIRToChordConstraint = (
 			return new ChordInKeyHardConstraint(keyGrabber)
 		case "ChordRootAbsoluteStepSizeHardConstraint":
 			return new ChordRootAbsoluteStepSizeHardConstraint(
-				constantGrabber(new Set(ir.stepSizes)),
+				constantNumberArrayGrabber(ir.stepSizes),
 			)
 		case "PlagalCadenceSoftConstraint":
 			return new PlagalCadenceSoftConstraint(ir.bonus, keyGrabber)
@@ -153,23 +154,23 @@ export const convertIRToNoteConstraint = (
 			)
 		case "MelodyAbsoluteStepSizeHardConstraint":
 			return new MelodyAbsoluteStepSizeHardConstraint(
-				constantGrabber(new Set(ir.stepSizes)),
+				constantNumberArrayGrabber(ir.stepSizes),
 			)
 		case "AscendingMelodySoftConstraint":
 			return new AscendingMelodySoftConstraint(ir.bonus)
 		case "DescendingMelodySoftConstraint":
 			return new DescendingMelodySoftConstraint(ir.bonus)
 		case "MelodyEndsOnNoteHardConstraint":
-			return new MelodyEndsOnNoteHardConstraint(ir.noteGrabber)
+			return new MelodyEndsOnNoteHardConstraint(noteGrabberIRToGrabber(ir.noteGrabber))
 		case "MelodyStartsOnNoteHardConstraint":
-			return new MelodyStartsOnNoteHardConstraint(ir.noteGrabber)
+			return new MelodyStartsOnNoteHardConstraint(noteGrabberIRToGrabber(ir.noteGrabber))
 		case "MelodyInRangeHardConstraint":
 			return new MelodyInRangeHardConstraint(
-				constantGrabber(OctavedNote.fromIR(ir.lowerNoteIR)),
-				constantGrabber(OctavedNote.fromIR(ir.higherNoteIR)),
+				constantOctavedNoteGrabber(OctavedNote.fromIR(ir.lowerNoteIR)),
+				constantOctavedNoteGrabber(OctavedNote.fromIR(ir.higherNoteIR)),
 			)
 		case "MelodyShapeHardConstraint":
-			return new MelodyShapeHardConstraint(constantGrabber(ir.shape))
+			return new MelodyShapeHardConstraint(constantMelodyShapeGrabber(ir.shape))
 	}
 }
 

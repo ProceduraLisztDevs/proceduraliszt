@@ -1,14 +1,13 @@
 import { OctavedNote, Note } from "../../music_theory/Note"
-import { Grabber } from "../Grabber"
+import { Grabber, NoteGrabberIR } from "../Grabber"
 import { HigherValues } from "../HigherValues"
 import { Tile } from "../Tile"
-import { RootOfChordGrabber } from "../grabbers/noteGrabbers"
 import { HardConstraint } from "./concepts/Constraint"
 import { noteConstraintTypeToName } from "./constraintUtils"
 
 export const MelodyStartsOnNoteHardConstraintInit = {
 	type: "MelodyStartsOnNoteHardConstraint" as const,
-	noteGrabber: RootOfChordGrabber,
+	noteGrabber: "RootOfChordGrabber" as NoteGrabberIR,
 	validByDefault: true as const,
 }
 

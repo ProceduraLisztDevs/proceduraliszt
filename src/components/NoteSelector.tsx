@@ -1,20 +1,17 @@
 import Select from "react-select"
 import { Note } from "../music_theory/Note"
 import { useState } from "react"
-import { Grabber } from "../wfc/Grabber"
-import { constantGrabber } from "../wfc/grabbers/constantGrabbers"
-import { FifthOfChordGrabber, RootOfChordGrabber, ThirdOfChordGrabber } from "../wfc/grabbers/noteGrabbers"
 import { selectStyles } from "../styles"
 import { ConstantNoteSelector } from "./ConstantNoteSelector"
 import { SelectNoteOption, SelectOption } from "./utils"
-import { HigherValues } from "../wfc/HigherValues"
+import { NoteGrabberIR } from "../wfc/Grabber"
 
 interface NoteSelectorProps {
 	setValue: (_: NoteSelectorResult) => void
 	startValue?: NoteSelectorResult
 }
 
-export type NoteSelectorResult = Grabber<Note> | null
+export type NoteSelectorResult = NoteGrabberIR | null
 
 const noteSelectorOptions = [
 	{ label: "Root of chord", value: "RootOfChord" },
@@ -26,11 +23,11 @@ const noteSelectorOptions = [
 const resultToOption = (result: NoteSelectorResult) => {
 	switch (result) {
 		case null: return null
-		case RootOfChordGrabber: return noteSelectorOptions[0]
-		case ThirdOfChordGrabber: return noteSelectorOptions[1]
-		case FifthOfChordGrabber: return noteSelectorOptions[2]
+		case "RootOfChordGrabber": return noteSelectorOptions[0]
+		case "ThirdOfChordGrabber": return noteSelectorOptions[1]
+		case "FifthOfChordGrabber": return noteSelectorOptions[2]
 		default: // Constant note
-			return { ...noteSelectorOptions[3], note: result({} as HigherValues) }
+			return { ...noteSelectorOptions[3], note: result.value }
 	}
 }
 
@@ -41,7 +38,7 @@ export function NoteSelector({ setValue, startValue }: NoteSelectorProps) {
 
 	const buildConstantGrabber = (option: SelectNoteOption) => {
 		if (option === null) throw new Error("Invalid option")
-		setValue(constantGrabber(option.value))
+		setValue({type: "note", value: option.value})
 	}
 
 	return <>
@@ -51,17 +48,17 @@ export function NoteSelector({ setValue, startValue }: NoteSelectorProps) {
 				setSelected(option)
 				switch (option?.value) {
 					case "RootOfChord":
-						setValue(RootOfChordGrabber)
+						setValue("RootOfChordGrabber")
 						break
 					case "ThirdOfChord":
-						setValue(ThirdOfChordGrabber)
+						setValue("ThirdOfChordGrabber")
 						break
 					case "FifthOfChord":
-						setValue(FifthOfChordGrabber)
+						setValue("FifthOfChordGrabber")
 						break
 					case "Custom":
 						if (customNoteSelected === null) throw new Error("Invalid custom note selected")
-						setValue(constantGrabber(customNoteSelected))
+						setValue({type: "note", value: customNoteSelected})
 						break
 					default:
 						throw new Error("Invalid note selector option")

@@ -1,7 +1,7 @@
 import { ConcreteChordQuality } from "../../../music_theory/Chord"
 import { MusicalKey } from "../../../music_theory/MusicalKey"
 import { Grabber } from "../../Grabber"
-import { constantGrabber } from "../../grabbers/constantGrabbers"
+import { constantConcreteChordQualityGrabber, constantNumberGrabber } from "../../grabbers/constantGrabbers"
 import { chordConstraintTypeToName } from "../constraintUtils"
 import { GenericCadenceSoftConstraint } from "./GenericCadenceSoftConstraint"
 
@@ -20,10 +20,10 @@ export class PlagalCadenceSoftConstraint extends GenericCadenceSoftConstraint {
 	constructor(bonus: number, keyGrabber: Grabber<MusicalKey>) {
 		super(
 			bonus,
-			constantGrabber(5),
-			constantGrabber(0),
-			constantGrabber("major" as ConcreteChordQuality),
-			constantGrabber("major" as ConcreteChordQuality),
+			constantNumberGrabber(5),
+			constantNumberGrabber(0),
+			constantConcreteChordQualityGrabber("major" as ConcreteChordQuality),
+			constantConcreteChordQualityGrabber("major" as ConcreteChordQuality),
 			keyGrabber,
 		)
 	}

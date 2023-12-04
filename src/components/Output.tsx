@@ -10,7 +10,7 @@ import { TileCanvasProps } from "../wfc/TileCanvas"
 import { convertIRToChordConstraint, convertIRToNoteConstraint } from "../wfc/constraints/constraintUtils"
 import { ChordPrototype, ChordPrototypeIR, Chordesque, chordPrototypeIRToChordPrototype, chordesqueIRMapToChordesqueMap } from "../wfc/hierarchy/Chordesque"
 import { ChordPrototypeOnlyFollowedByConstraint } from "../wfc/constraints/ChordPrototypeOnlyFollowedByConstraint"
-import { constantGrabber } from "../wfc/grabbers/constantGrabbers"
+import { constantStringArrayGrabber } from "../wfc/grabbers/constantGrabbers"
 import { ChordPrototypeOnlyPrecededByConstraint } from "../wfc/constraints/ChordPrototypeOnlyPrecededByConstraint"
 import { Constraint } from "../wfc/constraints/concepts/Constraint"
 import { Section, sectionIRMapToSectionMap, sectionIRToSection } from "../wfc/hierarchy/Section"
@@ -40,7 +40,7 @@ export function parseChordPrototypes(chordPrototypes: ChordPrototypeIR[]): Parse
 				if (properlyNamedChordPrototypes.some(proto => proto.name === chordName)) return true
 				return (Chord.parseChordString(chordName) !== undefined)
 			})) {
-				chordPrototypeConstraints.push(new ChordPrototypeOnlyPrecededByConstraint(protoIR.name, constantGrabber(protoIR.allowedPrecedingChords)))
+				chordPrototypeConstraints.push(new ChordPrototypeOnlyPrecededByConstraint(protoIR.name, constantStringArrayGrabber(protoIR.allowedPrecedingChords)))
 			}
 		}
 
@@ -49,7 +49,7 @@ export function parseChordPrototypes(chordPrototypes: ChordPrototypeIR[]): Parse
 				if (properlyNamedChordPrototypes.some(proto => proto.name === chordName)) return true
 				return (Chord.parseChordString(chordName) !== undefined)
 			})) {
-				chordPrototypeConstraints.push(new ChordPrototypeOnlyFollowedByConstraint(protoIR.name, constantGrabber(protoIR.allowedFollowingChords)))
+				chordPrototypeConstraints.push(new ChordPrototypeOnlyFollowedByConstraint(protoIR.name, constantStringArrayGrabber(protoIR.allowedFollowingChords)))
 			}
 		}
 	}
@@ -87,7 +87,7 @@ export function Output() {
 					if (properlyNamedSections.some(section => section.name === sectionName)) return true
 					return (Chord.parseChordString(sectionName) !== undefined)
 				})) {
-					sectionConstraints.push(new SectionOnlyPrecededByHardConstraint(sectionIR.name, constantGrabber(sectionIR.allowedPrecedingSections)))
+					sectionConstraints.push(new SectionOnlyPrecededByHardConstraint(sectionIR.name, constantStringArrayGrabber(sectionIR.allowedPrecedingSections)))
 				}
 			}
 
@@ -96,7 +96,7 @@ export function Output() {
 					if (properlyNamedSections.some(section => section.name === sectionName)) return true
 					return (Chord.parseChordString(sectionName) !== undefined)
 				})) {
-					sectionConstraints.push(new SectionOnlyFollowedByHardConstraint(sectionIR.name, constantGrabber(sectionIR.allowedFollowingSections)))
+					sectionConstraints.push(new SectionOnlyFollowedByHardConstraint(sectionIR.name, constantStringArrayGrabber(sectionIR.allowedFollowingSections)))
 				}
 			}
 		}
