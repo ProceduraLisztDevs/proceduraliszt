@@ -17,11 +17,11 @@ export type MelodyAbsoluteStepSizeHardConstraintIR =
 export class MelodyAbsoluteStepSizeHardConstraint
 	implements HardConstraint<OctavedNote>
 {
-	private grabber: Grabber<Set<number>>
+	private grabber: Grabber<number[]>
 	name = noteConstraintTypeToName.get(
 		MelodyAbsoluteStepSizeHardConstraintInit.type,
 	) as string
-	constructor(grabber: Grabber<Set<number>>) {
+	constructor(grabber: Grabber<number[]>) {
 		this.grabber = grabber
 	}
 
@@ -45,6 +45,6 @@ export class MelodyAbsoluteStepSizeHardConstraint
 	): boolean {
 		const stepSizeSet = this.grabber(higherValues)
 		const stepSize = OctavedNote.getStepSizeAbs(first, second)
-		return stepSizeSet.has(stepSize)
+		return stepSizeSet.includes(stepSize)
 	}
 }

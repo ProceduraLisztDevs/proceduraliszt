@@ -19,11 +19,11 @@ export type ChordRootAbsoluteStepSizeHardConstraintIR =
 export class ChordRootAbsoluteStepSizeHardConstraint
 	implements HardConstraint<Chordesque>
 {
-	private grabber: Grabber<Set<number>>
+	private grabber: Grabber<number[]>
 	name = chordConstraintTypeToName.get(
 		ChordRootAbsoluteStepSizeHardConstraintInit.type,
 	) as string
-	constructor(grabber: Grabber<Set<number>>) {
+	constructor(grabber: Grabber<number[]>) {
 		this.grabber = grabber
 	}
 
@@ -53,6 +53,6 @@ export class ChordRootAbsoluteStepSizeHardConstraint
 		const firstRoot = first.getRoot()
 		const secondRoot = second.getRoot()
 		const stepSize = noteDistanceAbs(firstRoot, secondRoot)
-		return stepSizeSet.has(stepSize)
+		return stepSizeSet.includes(stepSize)
 	}
 }
