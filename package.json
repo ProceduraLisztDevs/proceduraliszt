@@ -15,6 +15,7 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-select": "^5.7.4",
+		"react-youtube": "^10.1.0",
 		"reactjs-popup": "^2.0.5",
 		"tone": "^14.7.77"
 	},
@@ -32,6 +33,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.3.4",
 		"prettier": "^3.0.3",
+		"react-router-dom": "^6.22.2",
 		"typescript": "^5.0.2",
 		"vite": "^4.3.9"
 	}

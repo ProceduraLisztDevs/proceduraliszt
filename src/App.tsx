@@ -11,6 +11,9 @@ import { ChordPrototypesPage } from "./components/ChordPrototypesPage"
 import { SectionsPage } from "./components/SectionsPage"
 import { SectionTiles } from "./components/SectionTiles"
 import { Configs } from "./components/Configs"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Results } from "./results/Results"
+import { Tutorial } from "./components/Tutorial"
 
 function App() {
 
@@ -47,14 +50,26 @@ function App() {
 		{
 			title: "Configs",
 			content: <Configs />
+		},
+		{
+			title: "Tutorial",
+			content: <Tutorial />
 		}
 	]
 
-	return (
+	const PLApp = () => 
 		<AppProvider>
 			<TabComponent tabs={tabs} />
 			<Output/>
 		</AppProvider>
+
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="proceduraliszt" element={<PLApp/>} />
+				<Route path="proceduraliszt/results" element={<Results/>}/>
+			</Routes>
+		</BrowserRouter>
 	)
 }
 
