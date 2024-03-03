@@ -11,7 +11,7 @@ import { ChordPrototypesPage } from "./components/ChordPrototypesPage"
 import { SectionsPage } from "./components/SectionsPage"
 import { SectionTiles } from "./components/SectionTiles"
 import { Configs } from "./components/Configs"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { Results } from "./results/Results"
 import { Tutorial } from "./components/Tutorial"
 
@@ -62,12 +62,12 @@ function App() {
 		</AppProvider>
 
 	return (
-		<BrowserRouter basename="/proceduraliszt/">
+		<HashRouter basename="/proceduraliszt/">
 			<Routes>
 				<Route index path="" element={<PLApp/>} />
 				<Route path="results" element={<Results/>}/>
 			</Routes>
-		</BrowserRouter>
+		</HashRouter>
 	)
 }
 
