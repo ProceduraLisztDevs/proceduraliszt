@@ -14,7 +14,7 @@ export type AscendingMelodySoftConstraintIR =
 export class AscendingMelodySoftConstraint extends SoftConstraint<OctavedNote> {
 	name = noteConstraintTypeToName.get(
 		AscendingMelodySoftConstraintInit.type,
-	) as string
+	)!.name as string
 
 	constructor(bonus: number) {
 		super(bonus)

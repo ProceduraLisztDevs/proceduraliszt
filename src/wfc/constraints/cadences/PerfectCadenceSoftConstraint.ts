@@ -16,7 +16,7 @@ export type PerfectCadenceSoftConstraintIR =
 export class PerfectCadenceSoftConstraint extends GenericCadenceSoftConstraint {
 	name = chordConstraintTypeToName.get(
 		PerfectCadenceSoftConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(bonus: number, keyGrabber: Grabber<MusicalKey>) {
 		super(
 			bonus,

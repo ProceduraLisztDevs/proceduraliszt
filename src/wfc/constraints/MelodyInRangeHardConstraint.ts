@@ -22,7 +22,7 @@ export class MelodyInRangeHardConstraint
 	private upperGrabber: Grabber<OctavedNote>
 	name = noteConstraintTypeToName.get(
 		MelodyInRangeHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(
 		lowerGrabber: Grabber<OctavedNote>,
 		upperGrabber: Grabber<OctavedNote>,

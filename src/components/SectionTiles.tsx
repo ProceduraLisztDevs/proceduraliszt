@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useAppContext } from "../AppState"
 import Popup from "reactjs-popup"
 import { SectionIR, nameOfSectionIR } from "../wfc/hierarchy/Section"
+import { H2tooltip } from "./tooltips"
 
 interface SectionTileProps {
 	index: number;
@@ -82,7 +83,7 @@ export function SectionTiles() {
 
 	return (
 		<>
-			<h2>Sections</h2>
+			<H2tooltip title="Sections" hint="Set the options for each of the sections. Multiple options can be given per index. If left empty for a given index, all sections have a chance to be chosen."/>
 			{arr.map((_, i) => (
 				<SectionTile key={i} index={i} initialOptions={sectionOptionsPerCell.get(i)?.map(nameOfSectionIR)} />
 			))}

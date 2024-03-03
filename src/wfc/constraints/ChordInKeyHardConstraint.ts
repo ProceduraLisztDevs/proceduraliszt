@@ -16,7 +16,7 @@ export class ChordInKeyHardConstraint implements HardConstraint<Chordesque> {
 	private grabber: Grabber<MusicalKey>
 	name = chordConstraintTypeToName.get(
 		ChordInKeyHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(grabber: Grabber<MusicalKey>) {
 		this.grabber = grabber
 	}

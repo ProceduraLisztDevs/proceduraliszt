@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react"
 import * as Tone from "tone"
 import { OctavedNote } from "../music_theory/Note"
+import MidiWriter, { Pitch } from 'midi-writer-js';
 
 const normalizeYPositions = (yPositions: number[]): number[] => {
 	const maxY = Math.max(...yPositions)
@@ -11,6 +12,22 @@ export type NoteOutput = {
 	octavedNote: OctavedNote;
 	startTime: number;
 	duration: number;
+};
+
+const generateMidi = (notes: NoteOutput[]) => {
+    let track = new MidiWriter.Track();
+    const ticksPerSecond = 256;
+
+    notes.forEach(note => {
+		track.addEvent(new MidiWriter.NoteEvent({
+			pitch: note.octavedNote.toString() as Pitch, 
+			startTick: Math.round(note.startTime * ticksPerSecond), 
+			duration: `T${note.duration * ticksPerSecond -1}`
+		}));
+    });
+
+    let write = new MidiWriter.Writer(track);
+    return write.dataUri();
 };
 
 type MidiPlayerProps = {
@@ -119,6 +136,18 @@ export function MidiPlayer({ notes, length, isPlaying, setIsPlaying, updatePlaye
 				</button>
 				<button onClick={handleTogglePlayback} disabled={notes.length < 1}>
 					{isPlaying ? "■" : "▶"}
+				</button>
+				<button onClick={() => {
+						const midiData = generateMidi(notes);
+						const element = document.createElement("a");
+						element.href = midiData;
+						element.download = "music.mid";
+						document.body.appendChild(element);
+						element.click();
+						}
+					} 
+					disabled={notes.length < 1}>
+					Download MIDI
 				</button>
 				<br />
 				<div style={{ padding: "1em", width: "180px", textAlign: "center" }}>

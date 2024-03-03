@@ -16,7 +16,7 @@ export type PlagalCadenceSoftConstraintIR =
 export class PlagalCadenceSoftConstraint extends GenericCadenceSoftConstraint {
 	name = chordConstraintTypeToName.get(
 		PlagalCadenceSoftConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(bonus: number, keyGrabber: Grabber<MusicalKey>) {
 		super(
 			bonus,

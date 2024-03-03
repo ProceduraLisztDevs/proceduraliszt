@@ -3,6 +3,7 @@ import { useAppContext } from "../AppState"
 import Popup from "reactjs-popup"
 import { stringToChordIR } from "../music_theory/Chord"
 import { ChordPrototypeIR, ChordesqueIR, chordesqueIRToString, nameOfChordPrototypeIR } from "../wfc/hierarchy/Chordesque"
+import { H2tooltip } from "./tooltips"
 
 interface ChordTileProps {
 	index: number;
@@ -88,7 +89,7 @@ export function ChordTiles() {
 
 	return (
 		<>
-			<h3>Chords</h3>
+			<H2tooltip title="Chords" hint="Set the options for each of the chords / chord prototypes. These options will apply to each of the chord canvases (so for each section). Multiple options can be given per index. If left empty for a given index, all chords / chord prototypes have a chance to be chosen (according to the constraints)."/>
 			{arr.map((_, i) => (
 				<ChordTile key={i} index={i} initialOptions={chordOptionsPerCell.get(i)?.map(chordesqueIRToString)} />
 			))}

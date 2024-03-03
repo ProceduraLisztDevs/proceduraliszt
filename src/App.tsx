@@ -27,12 +27,10 @@ function App() {
 						<SectionTiles />
 					</div>
 					<div className="main-column">
-						<h2>Chords</h2>
 						<ChordTiles />
 						<ChordConstraints />
 					</div>
 					<div className="main-column">
-						<h2>Melody</h2>
 						<NoteTiles />
 						<NoteConstraints />
 					</div>
@@ -64,10 +62,10 @@ function App() {
 		</AppProvider>
 
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename="/proceduraliszt/">
 			<Routes>
-				<Route path="proceduraliszt" element={<PLApp/>} />
-				<Route path="proceduraliszt/results" element={<Results/>}/>
+				<Route index path="" element={<PLApp/>} />
+				<Route path="results" element={<Results/>}/>
 			</Routes>
 		</BrowserRouter>
 	)

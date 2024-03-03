@@ -2,6 +2,7 @@ import { useState } from "react"
 import Popup from "reactjs-popup"
 import { useAppContext } from "../AppState"
 import { OctavedNote, OctavedNoteIR, parseOctavedNoteIRs } from "../music_theory/Note"
+import { H2tooltip } from "./tooltips"
 
 interface NoteValuesPopupProps {
 	popupOpen: boolean
@@ -58,7 +59,7 @@ export function NoteTiles() {
 	const arr = Array(melodyLength).fill(0)
 
 	return <div>
-		<h3>Notes</h3>
+		<H2tooltip title="Melody" hint="Set the options for each of the notes. These options will apply to each of the melody canvases (so for each chord within each section). Multiple options can be given per index. If left empty for a given index, all notes have a chance to be chosen (according to the constraints)."/>
 		{arr.map((_, i) => <NoteTile key={i} index={i} initialOptions={noteOptionsPerCell.get(i)?.map(OctavedNote.IRtoString)} />)}
 	</div>
 }

@@ -19,7 +19,7 @@ export class MelodyStartsOnNoteHardConstraint
 {
 	name = noteConstraintTypeToName.get(
 		MelodyStartsOnNoteHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(private grabber: Grabber<Note>) {}
 
 	check(tile: Tile<OctavedNote>, higherValues: HigherValues): boolean {

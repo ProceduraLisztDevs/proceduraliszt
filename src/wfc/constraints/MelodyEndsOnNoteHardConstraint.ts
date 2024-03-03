@@ -21,7 +21,7 @@ export class MelodyEndsOnNoteHardConstraint
 	private grabber: Grabber<Note>
 	name = noteConstraintTypeToName.get(
 		MelodyEndsOnNoteHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(grabber: Grabber<Note>) {
 		this.grabber = grabber
 	}

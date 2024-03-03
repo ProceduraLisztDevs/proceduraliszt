@@ -4,6 +4,7 @@ import { useAppContext } from "../AppState"
 import Select from "react-select"
 import { selectStyles } from "../styles"
 import { SimpleConstraintConfigDiv } from "./SimpleConstraintConfigDiv"
+import { H4tooltip } from "./tooltips"
 
 interface ChordConstraintConfigProps {
 	constraintIR: ChordConstraintIR
@@ -80,11 +81,17 @@ interface ChordConstraintDivProps {
 export function ChordConstraintDiv({ constraintIR, onConstraintChange, onRemove }: ChordConstraintDivProps) {
 	const [valid, setValid] = useState(constraintIR.validByDefault as boolean)
 
+	const chordConstraintReadable = chordConstraintTypeToName.get(constraintIR.type)!
+
 	return <div className="constraint-div">
 		<div style={{ display: "flex", justifyContent: "end", gap: "0.5em", flexDirection: "row", alignItems: "center", fontSize: 8 }}>
 			<button style={{ width: "fit-content", height: "fit-content" }} onClick={onRemove}>X</button>
 		</div>
-		<h4 style={{ color: valid ? "white" : "red", marginTop: 0 }}>{chordConstraintTypeToName.get(constraintIR.type)}</h4>
+		{
+			chordConstraintReadable.hint ?
+			<H4tooltip title={chordConstraintReadable!.name} hint={chordConstraintReadable!.hint} style={{ color: valid ? "white" : "red", marginTop: 0 }}/> :
+			<h4 style={{ color: valid ? "white" : "red", marginTop: 0 }}>{chordConstraintReadable.name}</h4>
+		}
 		<ChordConstraintConfig constraintIR={constraintIR} onConstraintChange={onConstraintChange} setValid={setValid} />
 	</div>
 }
@@ -99,7 +106,7 @@ function AddChordConstraint({ onAddConstraint }: AddChordConstraintProps) {
 	const { chordConstraintSet } = useAppContext()
 	const [selectedType, setSelectedType] = useState<ChordConstraintTypeOption | null>(null)
 
-	const getChordConstraintOptions = () => chordConstraintOptions.filter(option => !chordConstraintSet.map(constraint => constraint.type).includes(option.value))
+	const getChordConstraintOptions = () => chordConstraintOptions.filter(option => !chordConstraintSet.map(constraint => constraint.type).includes(option.value)).map(option => ({ value: option.value, label: option.label.name }))
 
 	const handleAddButtonClick = () => {
 		if (!selectedType) return

@@ -18,7 +18,7 @@ export class MelodyShapeHardConstraint implements HardConstraint<OctavedNote> {
 	private grabber: Grabber<MelodyShape>
 	name = noteConstraintTypeToName.get(
 		MelodyShapeHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(grabber: Grabber<MelodyShape>) {
 		this.grabber = grabber
 	}

@@ -9,6 +9,7 @@ import { ConstantOctavedNoteSelector } from "./ConstantOctavedNoteSelector"
 import { MelodyShape, } from "../wfc/constraints/concepts/MelodyShape"
 import { MelodyShapeSelector } from "./MelodyShapeSelector"
 import { SimpleConstraintConfigDiv } from "./SimpleConstraintConfigDiv"
+import { H4tooltip } from "./tooltips"
 
 interface NoteConstraintConfigProps {
 	constraintIR: NoteConstraintIR
@@ -136,11 +137,17 @@ interface NoteConstraintDivProps {
 function NoteConstraintDiv({ constraintIR, onConstraintChange, onRemove }: NoteConstraintDivProps) {
 	const [valid, setValid] = useState(constraintIR.validByDefault)
 
+	const noteConstraintReadable = noteConstraintTypeToName.get(constraintIR.type)!
+
 	return <div className="constraint-div">
 		<div style={{ display: "flex", justifyContent: "end", gap: "0.5em", flexDirection: "row", alignItems: "center", fontSize: 8 }}>
 			<button style={{ width: "fit-content", height: "fit-content" }} onClick={onRemove}>X</button>
 		</div>
-		<h4 style={{ color: valid ? "white" : "red", marginTop: 0 }}>{noteConstraintTypeToName.get(constraintIR.type)}</h4>
+		{
+			noteConstraintReadable.hint ?
+			<H4tooltip title={noteConstraintReadable.name} hint={noteConstraintReadable.hint} style={{ color: valid ? "white" : "red", marginTop: 0 }} /> :
+			<h4 style={{ color: valid ? "white" : "red", marginTop: 0 }}>{noteConstraintReadable.name}</h4>
+		}
 		<NoteConstraintConfig constraintIR={constraintIR} onConstraintChange={onConstraintChange} setValid={setValid} />
 	</div>
 }
@@ -155,7 +162,7 @@ function AddNoteConstraint({ onAddConstraint }: AddNoteConstraintProps) {
 	const { noteConstraintSet } = useAppContext()
 	const [selectedType, setSelectedType] = useState<NoteConstraintTypeOption | null>(null)
 
-	const getNoteConstraintOptions = () => noteConstraintOptions.filter(option => !noteConstraintSet.map(constraint => constraint.type).includes(option.value))
+	const getNoteConstraintOptions = () => noteConstraintOptions.filter(option => !noteConstraintSet.map(constraint => constraint.type).includes(option.value)).map(option => ({ value: option.value, label: option.label.name }))
 
 	const handleAddButtonClick = () => {
 		if (!selectedType) return

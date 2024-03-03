@@ -22,7 +22,7 @@ export class ChordRootAbsoluteStepSizeHardConstraint
 	private grabber: Grabber<number[]>
 	name = chordConstraintTypeToName.get(
 		ChordRootAbsoluteStepSizeHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(grabber: Grabber<number[]>) {
 		this.grabber = grabber
 	}

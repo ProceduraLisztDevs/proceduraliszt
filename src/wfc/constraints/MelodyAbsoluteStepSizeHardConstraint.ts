@@ -20,7 +20,7 @@ export class MelodyAbsoluteStepSizeHardConstraint
 	private grabber: Grabber<number[]>
 	name = noteConstraintTypeToName.get(
 		MelodyAbsoluteStepSizeHardConstraintInit.type,
-	) as string
+	)!.name as string
 	constructor(grabber: Grabber<number[]>) {
 		this.grabber = grabber
 	}
