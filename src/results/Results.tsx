@@ -91,7 +91,7 @@ interface MediaProps {
 const MediaComponent: React.FC<MediaProps> = ({ author, mp3Url, key}) => {
   return <>
     <div key={key} style={{display:"flex", flexDirection:"row", alignItems:"center", margin: "0 auto"}}>
-      <audio controls src={"/results/" + mp3Url}>Your browser does not support the audio element.</audio> {/* Audio player */}
+      <audio controls src={"../results/" + mp3Url}>Your browser does not support the audio element.</audio> {/* Audio player */}
       <p style={{color:"gray", marginLeft:"1.5ex"}}>{"by " + author}</p>
     </div>
   </>;
