@@ -1,10 +1,15 @@
 export function Results() {
     return <>
-        <h2>Results</h2>
-        <p style={{maxWidth:"50vw"}}>
-          Below, you can find some compositions by the developers and some eager contributors. We hope the compositions will speak for themselves. Many thanks to everyone for your submissions! 
-        </p>
-        {resultsProps.map(props => MediaComponent(props))}
+        <h1>Results</h1>
+        <div style={{display:"flex", flexDirection:"column"}}>
+          <p style={{maxWidth:"50vw"}}>
+            Below, you can find some compositions by the developers and some eager contributors.<br/>We hope the compositions will speak for themselves.<br/>Many thanks to everyone for your submissions! 
+          </p>
+          <div style={{alignItems:"left", alignSelf:"center"}}>
+
+           {resultsProps.map(props => MediaComponent(props))}
+          </div>
+        </div>
     </>
 }
 
@@ -85,7 +90,7 @@ interface MediaProps {
 
 const MediaComponent: React.FC<MediaProps> = ({ author, mp3Url, key}) => {
   return <>
-    <div key={key} style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+    <div key={key} style={{display:"flex", flexDirection:"row", alignItems:"center", margin: "0 auto"}}>
       <audio controls src={"/results/" + mp3Url}>Your browser does not support the audio element.</audio> {/* Audio player */}
       <p style={{color:"gray", marginLeft:"1.5ex"}}>{"by " + author}</p>
     </div>
